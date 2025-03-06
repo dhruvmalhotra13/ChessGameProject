@@ -1,0 +1,227 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess Royale</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Rajdhani:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Add to head section -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Intro Screen -->
+    <div class="intro-screen" id="introScreen">
+      <div class="intro-content">
+        <h1 class="game-title">Chess Royale</h1>
+        <div class="players-setup">
+          <div class="player-input">
+            <div class="avatar white-avatar"></div>
+            <input
+              type="text"
+              placeholder="White Player Name"
+              id="whitePlayerName"
+            />
+          </div>
+          <div class="vs">VS</div>
+          <div class="player-input">
+            <div class="avatar black-avatar"></div>
+            <input
+              type="text"
+              placeholder="Black Player Name"
+              id="blackPlayerName"
+            />
+          </div>
+        </div>
+        <button class="start-btn" onclick="startGame()">Start Game</button>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="game-screen hidden" id="gameScreen">
+      <div class="game-container">
+        <aside class="player-panel black">
+          <div class="player-info">
+            <div class="player-avatar black-avatar"></div>
+            <h2 class="player-name" id="blackPlayerDisplay">Black Player</h2>
+            <div class="player-timer black">10:00</div>
+            <div class="player-status">Thinking...</div>
+          </div>
+          <div class="captured-pieces black"></div>
+        </aside>
+
+        <main class="board-container">
+          <header class="game-header">
+            <h1>Chess Royale</h1>
+            <div class="game-status">
+              <span id="current-turn">White's Turn</span>
+              <span id="check-status"></span>
+            </div>
+          </header>
+
+          <div class="chess-board">
+            <!-- Column labels -->
+            <div class="label"></div>
+            <!-- Empty corner -->
+            <div class="label">a</div>
+            <div class="label">b</div>
+            <div class="label">c</div>
+            <div class="label">d</div>
+            <div class="label">e</div>
+            <div class="label">f</div>
+            <div class="label">g</div>
+            <div class="label">h</div>
+
+            <!-- Row 8 -->
+            <div class="label">8</div>
+            <button class="square white black" data-name="a8">&#9820;</button>
+            <!-- Black Rook -->
+            <button class="square green black" data-name="b8">&#9822;</button>
+            <!-- Black Knight -->
+            <button class="square white black" data-name="c8">&#9821;</button>
+            <!-- Black Bishop -->
+            <button class="square green black" data-name="d8">&#9819;</button>
+            <!-- Black Queen -->
+            <button class="square white black" data-name="e8">&#9818;</button>
+            <!-- Black King -->
+            <button class="square green black" data-name="f8">&#9821;</button>
+            <!-- Black Bishop -->
+            <button class="square white black" data-name="g8">&#9822;</button>
+            <!-- Black Knight -->
+            <button class="square green black" data-name="h8">&#9820;</button>
+            <!-- Black Rook -->
+
+            <!-- Row 7 -->
+            <div class="label">7</div>
+            <button class="square green black" data-name="a7">&#9823;</button>
+            <!-- Black Pawn -->
+            <button class="square white black" data-name="b7">&#9823;</button>
+            <!-- Black Pawn -->
+            <button class="square green black" data-name="c7">&#9823;</button>
+            <!-- Black Pawn -->
+            <button class="square white black" data-name="d7">&#9823;</button>
+            <!-- Black Pawn -->
+            <button class="square green black" data-name="e7">&#9823;</button>
+            <!-- Black Pawn -->
+            <button class="square white black" data-name="f7">&#9823;</button>
+            <!-- Black Pawn -->
+            <button class="square green black" data-name="g7">&#9823;</button>
+            <!-- Black Pawn -->
+            <button class="square white black" data-name="h7">&#9823;</button>
+            <!-- Black Pawn -->
+
+            <!-- Row 6 -->
+            <div class="label">6</div>
+            <button class="square white" data-name="a6"></button>
+            <button class="square green" data-name="b6"></button>
+            <button class="square white" data-name="c6"></button>
+            <button class="square green" data-name="d6"></button>
+            <button class="square white" data-name="e6"></button>
+            <button class="square green" data-name="f6"></button>
+            <button class="square white" data-name="g6"></button>
+            <button class="square green" data-name="h6"></button>
+
+            <!-- Row 5 -->
+            <div class="label">5</div>
+            <button class="square green" data-name="a5"></button>
+            <button class="square white" data-name="b5"></button>
+            <button class="square green" data-name="c5"></button>
+            <button class="square white" data-name="d5"></button>
+            <button class="square green" data-name="e5"></button>
+            <button class="square white" data-name="f5"></button>
+            <button class="square green" data-name="g5"></button>
+            <button class="square white" data-name="h5"></button>
+
+            <!-- Row 4 -->
+            <div class="label">4</div>
+            <button class="square white" data-name="a4"></button>
+            <button class="square green" data-name="b4"></button>
+            <button class="square white" data-name="c4"></button>
+            <button class="square green" data-name="d4"></button>
+            <button class="square white" data-name="e4"></button>
+            <button class="square green" data-name="f4"></button>
+            <button class="square white" data-name="g4"></button>
+            <button class="square green" data-name="h4"></button>
+
+            <!-- Row 3 -->
+            <div class="label">3</div>
+            <button class="square green" data-name="a3"></button>
+            <button class="square white" data-name="b3"></button>
+            <button class="square green" data-name="c3"></button>
+            <button class="square white" data-name="d3"></button>
+            <button class="square green" data-name="e3"></button>
+            <button class="square white" data-name="f3"></button>
+            <button class="square green" data-name="g3"></button>
+            <button class="square white" data-name="h3"></button>
+
+            <!-- Row 2 -->
+            <div class="label">2</div>
+            <button class="square white chitta" data-name="a2">&#9817;</button>
+            <!-- White Pawn -->
+            <button class="square green chitta" data-name="b2">&#9817;</button>
+            <!-- White Pawn -->
+            <button class="square white chitta" data-name="c2">&#9817;</button>
+            <!-- White Pawn -->
+            <button class="square green chitta" data-name="d2">&#9817;</button>
+            <!-- White Pawn -->
+            <button class="square white chitta" data-name="e2">&#9817;</button>
+            <!-- White Pawn -->
+            <button class="square green chitta" data-name="f2">&#9817;</button>
+            <!-- White Pawn -->
+            <button class="square white chitta" data-name="g2">&#9817;</button>
+            <!-- White Pawn -->
+            <button class="square green chitta" data-name="h2">&#9817;</button>
+            <!-- White Pawn -->
+
+            <!-- Row 1 -->
+            <div class="label">1</div>
+            <button class="square green chitta" data-name="a1">&#9814;</button>
+            <!-- White Rook -->
+            <button class="square white chitta" data-name="b1">&#9816;</button>
+            <!-- White Knight -->
+            <button class="square green chitta" data-name="c1">&#9815;</button>
+            <!-- White Bishop -->
+            <button class="square white chitta" data-name="d1">&#9813;</button>
+            <!-- White Queen -->
+            <button class="square green chitta" data-name="e1">&#9812;</button>
+            <!-- White King -->
+            <button class="square white chitta" data-name="f1">&#9815;</button>
+            <!-- White Bishop -->
+            <button class="square green chitta" data-name="g1">&#9816;</button>
+            <!-- White Knight -->
+            <button class="square white chitta" data-name="h1">&#9814;</button>
+            <!-- White Rook -->
+          </div>
+
+          <div class="game-controls">
+            <button class="control-btn" id="undoMove">Undo</button>
+            <button class="control-btn" id="resign">Resign</button>
+            <button class="control-btn" id="offerDraw">Offer Draw</button>
+          </div>
+        </main>
+
+        <aside class="player-panel white">
+          <div class="player-info">
+            <div class="player-avatar white-avatar"></div>
+            <h2 class="player-name" id="whitePlayerDisplay">White Player</h2>
+            <div class="player-timer white">10:00</div>
+            <div class="player-status">Your Turn</div>
+          </div>
+          <div class="captured-pieces white"></div>
+        </aside>
+      </div>
+    </div>
+
+    <canvas id="particleCanvas"></canvas>
+    <div class="cursor-trail"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
